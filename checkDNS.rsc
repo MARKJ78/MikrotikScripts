@@ -1,6 +1,5 @@
 :local checkDNS do={
 	########################################## Enter URL's Here
-	############
 	:local weburl [:toarray value="eu.wifiportal.io, bbc.co.uk,itv.co.uk,movenpick.com,galaxy.execloud.net,mbr.co.uk,live.com,microsoft.com,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
 	########################################## Enter URL's Here
 	:local i 0;
