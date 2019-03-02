@@ -3,7 +3,7 @@
 	:local weburl [:toarray value="eu.wifiportal.io, bbc.co.uk,itv.co.uk,movenpick.com,galaxy.execloud.net,mbr.co.uk,live.com,microsoft.com,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
 	########################################## Enter URL's Here
 	:local thisMany [:len $weburl];
-	:local resolvedAddress {""};
+	:local resolvedAddress;
 	:local retry 0;
 	:put "###### Test #$i. Testing with $svr ######";
 	:if ($flush) do={
@@ -15,28 +15,28 @@
 	:put "OKAY.. lets go";
 	:local startTime [/system clock get time];
 	:put "Start time: $startTime";
-	:foreach element in=$weburl do={
-		:put "Trying $element";
+	:foreach url in=$weburl do={
+		:put "Trying $url";
 		:if ($remoteSrv) do={
-			:do {:set resolvedAddress [resolve $element server $svr];} on-error={
+			:do {:set resolvedAddress [resolve $url server $svr];} on-error={
 				:put "###### DNS Timeout.... Trying once more before aborting test"; 
 				:do {
-					:set resolvedAddress [resolve $element server $svr];
+					:set resolvedAddress [resolve $url server $svr];
 					:set retry ($retry + 1);
 				};
 			};
 		} else={
-			:do {:set resolvedAddress [resolve $element];} on-error={
+			:do {:set resolvedAddress [resolve $url];} on-error={
 				:put "###### DNS Timeout.... Trying once more before aborting test"; 
 				:do {
-					:set resolvedAddress [resolve $element];
+					:set resolvedAddress [resolve $url];
 					:set retry ($retry + 1);
 				};
 			};
 		};
 	:put "Success $resolvedAddress";
 	};
-	######################################### Resolver End
+	##################################### Resolver End
 	:local endTime [/system clock get time];
 	:put "End time: $endTime";
 	:put "";
@@ -47,19 +47,18 @@
 	:set sum ( $sum + ( [ :pick $finalTime 0 2 ] * 60 * 60 ));
 	:set sum ( $sum + ( [ :pick $finalTime 3 5 ] * 60 ));
 	:set sum ( $sum + [ :pick $finalTime 6 8 ] );
-	############takenFromWeb########### Time formatting End
+	############takenFromWeb######## Time formatting End
 	:local overRun ($sum - 1);
 	:if ($sum <= 1) do={
 		:local testResultPass "###### Test #$i OO-PASSED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr.";
 		:set ($endResults->i) $testResultPass;
-	};
-	:if ($sum > 1) do={
+	} else={
 		:local testResultFail "###### Test #$i XX-FAILED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr. That is $overRun more than it should be.";
 		:set ($endResults->i) $testResultFail;
 	};
 	#################################### Format Results End
 };
-######################################### Resolve function end
+####################################### Resolve function end
 
 # Start here
 
@@ -91,7 +90,7 @@
 	$resolve svr=$svr endResults=$endResults i=$i flush=$flush remoteSrv=$remoteSrv;
 	# ^ Calls Resolver 
 };
-############################################# Define Servers and Test
+############################################## Define Servers and Test
 ###################################### Print Final Results to terminal
 :put "";
 :put "";
