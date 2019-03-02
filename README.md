@@ -1,7 +1,7 @@
 # MikrotikScripts
 
-## 1. checkDNS
+To use, paste the command into RouterOS terminal.
 
-To use, paste this command into RouterOS terminal.
+## 1. checkDNS
 
 <code>/tool fetch url="https://raw.githubusercontent.com/MARKJ78/MikrotikScripts/master/checkDNS.rsc" mode=https;/import checkDNS.rsc</code>
