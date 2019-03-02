@@ -6,7 +6,7 @@
 	:local resolvedAddress {""};
 	:local retry 0;
 	:put "###### Test #$i. Testing with $svr ######";
-	:if ($flush=true) do={
+	:if ($flush) do={
 		:put "Flushing Local Cache";
 		:put [/ip dns cache flush];
 		/delay 2;
@@ -17,16 +17,18 @@
 	:put "Start time: $startTime";
 	:foreach element in=$weburl do={
 		:put "Trying $element";
-		:if ($remoteSrv=true) do={
+		:if ($remoteSrv) do={
 			:do {:set resolvedAddress [resolve $element server $svr];} on-error={
-				:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
+				:put "###### DNS Timeout.... Trying once more before aborting test"; 
+				:do {
 					:set resolvedAddress [resolve $element server $svr];
 					:set retry ($retry + 1);
 				};
 			};
 		} else={
 			:do {:set resolvedAddress [resolve $element];} on-error={
-				:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
+				:put "###### DNS Timeout.... Trying once more before aborting test"; 
+				:do {
 					:set resolvedAddress [resolve $element];
 					:set retry ($retry + 1);
 				};
@@ -37,6 +39,7 @@
 	######################################### Resolver End
 	:local endTime [/system clock get time];
 	:put "End time: $endTime";
+	:put "";
 	#################################### Format Results
 	############takenFromWeb########### Time formatting
 	:local sum 0;
@@ -92,14 +95,12 @@
 ###################################### Print Final Results to terminal
 :put "";
 :put "";
-:put "#############################################";
-:put "# Each test should take <1s in a healthy system.";
+:put "#################################################";
+:put "# Each test should take < 1s in a healthy system.";
 :put "# There should be 0 retries.";
-:put "#############################################";
+:put "#################################################";
 :foreach i in=$endResults do={
 	:put $i;
 };
 :set endResults {","};
 ###################################### Print Final Results to terminal
-
-
