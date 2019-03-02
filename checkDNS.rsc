@@ -94,7 +94,6 @@
 ############################################## Define Servers and Test
 ###################################### Print Final Results to terminal
 :put "";
-:put "";
 :put "#################################################";
 :put "# Each test should take < 1s in a healthy system.";
 :put "# There should be 0 retries.";
