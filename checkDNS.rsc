@@ -8,7 +8,7 @@
 	:put "###### Test #$i. Testing with $svr ######";
 	:if ($flush) do={
 		:put "Flushing Local Cache";
-		:put [/ip dns cache flush];
+		/ip dns cache flush;
 		/delay 2;
 	};
 	######################################### Resolver
@@ -64,6 +64,7 @@
 
 ######################################### Define Servers and Test
 :put "###### Getting remote DNS servers for performance testing ######";
+:put "";
 :local endResults {""};
 :local manDnsServers [/ ip dns get servers];
 :local dynDnsServers [/ ip dns get dynamic-servers];
