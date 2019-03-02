@@ -2,6 +2,7 @@
 	########################################## Enter URL's Here
 	:local weburl [:toarray value="eu.wifiportal.io, bbc.co.uk,itv.co.uk,movenpick.com,galaxy.execloud.net,mbr.co.uk,live.com,microsoft.com,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
 	########################################## Enter URL's Here
+	:local thisMany [:len $weburl];
 	:local resolvedAddress {""};
 	:local retry 0;
 	:put "###### Test #$i. Testing with $svr ######";
@@ -10,10 +11,10 @@
 		:put [/ip dns cache flush];
 		/delay 2;
 	};
+	######################################### Resolver
 	:put "OKAY.. lets go";
 	:local startTime [/system clock get time];
 	:put "Start time: $startTime";
-	######################################### Resolver
 	:foreach element in=$weburl do={
 		:put "Trying $element";
 		:if ($remoteSrv=true) do={
@@ -33,7 +34,7 @@
 		};
 	:put "Success $resolvedAddress";
 	};
-	#################################### Resolver End
+	######################################### Resolver End
 	:local endTime [/system clock get time];
 	:put "End time: $endTime";
 	#################################### Format Results
@@ -68,7 +69,6 @@
 :local i 0; 
 :local flush true;
 :local remoteSrv false;
-:local thisMany [:len $weburl];
 :local length [:len $dnsServers];
 :local localTests ($length - 2); 
 # ^ Ditinguishes DNS server as Mikrotik
@@ -90,9 +90,11 @@
 };
 ############################################# Define Servers and Test
 ###################################### Print Final Results to terminal
+:put "";
+:put "";
 :put "#############################################";
-:put "Each test should take <1s in a healthy system.";
-:put "There should be 0 retries.";
+:put "# Each test should take <1s in a healthy system.";
+:put "# There should be 0 retries.";
 :put "#############################################";
 :foreach i in=$endResults do={
 	:put $i;
