@@ -17,13 +17,15 @@
 	:foreach element in=$weburl do={
 		:put "Trying $element";
 		:if ($remoteSrv=true) do={
-			:do {:set resolvedAddress [resolve $element server $svr];} on-error={:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
+			:do {:set resolvedAddress [resolve $element server $svr];} on-error={
+				:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
 					:set resolvedAddress [resolve $element server $svr];
 					:set retry ($retry + 1);
 				};
 			};
 		} else={
-			:do {:set resolvedAddress [resolve $element];} on-error={:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
+			:do {:set resolvedAddress [resolve $element];} on-error={
+				:put "###### DNS Timeout.... Trying once more before aborting test"; :do {
 					:set resolvedAddress [resolve $element];
 					:set retry ($retry + 1);
 				};
@@ -71,9 +73,10 @@
 :local localTests ($length - 2); 
 # ^ Ditinguishes DNS server as Mikrotik
 :foreach svr in=$dnsServers do={
-	:local position (:put [:find $dnsServers $svr]);
 	:set flush true;
 	:set remoteSrv false;
+	# ^ Flag Resets
+	:local position (:put [:find $dnsServers $svr]);
 	:if ($position = $length -1) do={
 		:set flush false;
 	};
@@ -94,6 +97,7 @@
 :foreach i in=$endResults do={
 	:put $i;
 };
+:set endResults {","};
 ###################################### Print Final Results to terminal
 
 
