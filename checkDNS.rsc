@@ -4,7 +4,6 @@
 	########################################## Enter URL's Here
 	:local resolvedAddress {""};
 	:local retry 0;
-	:set retry 0;
 	:put "###### Test #$i. Testing with $svr ######";
 	:if ($flush=true) do={
 		:put "Flushing Local Cache";
@@ -12,7 +11,6 @@
 		/delay 2;
 	};
 	:put "OKAY.. lets go";
-	/delay 1;
 	:local startTime [/system clock get time];
 	:put "Start time: $startTime";
 	######################################### Resolver
@@ -37,17 +35,14 @@
 	:local endTime [/system clock get time];
 	:put "End time: $endTime";
 	#################################### Format Results
-	#################################### Time formatting
+	############takenFromWeb########### Time formatting
 	:local sum 0;
 	:local finalTime ( $endTime - $startTime );
 	:set sum ( $sum + ( [ :pick $finalTime 0 2 ] * 60 * 60 ));
 	:set sum ( $sum + ( [ :pick $finalTime 3 5 ] * 60 ));
 	:set sum ( $sum + [ :pick $finalTime 6 8 ] );
-	#################################### Time formatting End
-	:local overRun 0;
-	:set overRun ($sum - 1);
-	:local underRun 0;
-	:set underRun (1 - $sum);
+	############takenFromWeb########### Time formatting End
+	:local overRun ($sum - 1);
 	:if ($sum <= 1) do={
 		:local testResultPass "###### Test #$i OO-PASSED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr.";
 		:set ($endResults->i) $testResultPass;
@@ -56,10 +51,12 @@
 		:local testResultFail "###### Test #$i XX-FAILED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr. That is $overRun more than it should be.";
 		:set ($endResults->i) $testResultFail;
 	};
-
 	#################################### Format Results End
 };
 ######################################### Resolve function end
+
+# Start here
+
 ######################################### Define Servers and Test
 :put "###### Getting remote DNS servers for performance testing ######";
 :local endResults {""};
@@ -85,7 +82,8 @@
 		:set remoteSrv true;
 	};
 	:set i ($i + 1);
-	:put [$resolve svr=$svr endResults=$endResults i=$i flag=$flag flush=$flush remoteSrv=$remoteSrv];
+	$resolve svr=$svr endResults=$endResults i=$i flush=$flush remoteSrv=$remoteSrv;
+	# ^ Calls Resolver 
 };
 ############################################# Define Servers and Test
 ###################################### Print Final Results to terminal
