@@ -1,6 +1,6 @@
 # MikrotikScripts
 
-To use, paste the command into RouterOS terminal.
+To use, enter the command into RouterOS terminal.
 
 ## 1. checkDNS
 
