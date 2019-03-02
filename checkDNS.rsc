@@ -12,7 +12,6 @@
 		/delay 2;
 	};
 	:put "OKAY.. lets go";
-	/delay 1;
 	:local startTime [/system clock get time];
 	:put "Start time: $startTime";
 	######################################### Resolver
