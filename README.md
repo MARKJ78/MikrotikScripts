@@ -4,7 +4,4 @@
 
 to use, paste these commands into RouterOS terminal
 
-<code>/tool fetch url="https://raw.githubusercontent.com/MARKJ78/MikrotikScripts/master/checkDNS.rsc" mode=https; /delay 2; /import checkDNS </code>
-
-
-
+<code>/tool fetch url="https://raw.githubusercontent.com/MARKJ78/MikrotikScripts/master/checkDNS.rsc" mode=https; /delay 2; /import checkDNS</code>
