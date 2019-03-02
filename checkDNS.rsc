@@ -7,7 +7,7 @@
 	:local retry 0;
 	:put "###### Test #$i. Testing with $svr ######";
 	:if ($flush) do={
-		:put "Flushing Local Cache";
+		:put "Flushing local cache";
 		/ip dns cache flush;
 		/delay 2;
 	};
