@@ -48,8 +48,8 @@
 	:set sum ( $sum + ( [ :pick $finalTime 3 5 ] * 60 ));
 	:set sum ( $sum + [ :pick $finalTime 6 8 ] );
 	############takenFromWeb######## Time formatting End
-	:local overRun ($sum - 1);
-	:if ($sum <= 1) do={
+	:local overRun ($sum - 2);
+	:if ($sum <= 2) do={
 		:local testResultPass "###### Test #$i OO-PASSED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr.";
 		:set ($endResults->i) $testResultPass;
 	} else={
