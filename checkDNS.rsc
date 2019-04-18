@@ -95,7 +95,7 @@
 ###################################### Print Final Results to terminal
 :put "";
 :put "#################################################";
-:put "# Each test should take < 1s in a healthy system.";
+:put "# Each test should take < 2s in a healthy system.";
 :put "# There should be 0 retries.";
 :put "#################################################";
 :foreach i in=$endResults do={
