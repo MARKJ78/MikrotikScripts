@@ -1,6 +1,6 @@
 # MikrotikScripts
 
-To use, enter the command into RouterOS terminal.
+To use enter the command into RouterOS terminal.
 
 ## 1. DNS server performance test
 
