@@ -19,7 +19,7 @@
 		:put "Trying $url";
 		:if ($remoteSrv) do={
 			:do {:set resolvedAddress [resolve $url server $svr];} on-error={
-				:put "###### DNS Timeout.... Trying once more before aborting test"; 
+				:put "###### DNS Timeout... Trying once more before aborting test"; 
 				:do {
 					:set resolvedAddress [resolve $url server $svr];
 					:set retry ($retry + 1);
@@ -27,7 +27,7 @@
 			};
 		} else={
 			:do {:set resolvedAddress [resolve $url];} on-error={
-				:put "###### DNS Timeout.... Trying once more before aborting test"; 
+				:put "###### DNS Timeout... Trying once more before aborting test"; 
 				:do {
 					:set resolvedAddress [resolve $url];
 					:set retry ($retry + 1);
