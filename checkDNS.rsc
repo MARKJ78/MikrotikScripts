@@ -1,6 +1,6 @@
 :local resolve do={
 	########################################## Enter URL's Here
-	:local weburl [:toarray value="bbc.co.uk,itv.co.uk,spotify.com,mbr.co.uk,netflix.com,live.com,amazon.com,microsoft.com,eu.wifiportal.io,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
+	:local weburl [:toarray value="bbc.co.uk,itv.co.uk,airangel.com,spotify.com,mbr.co.uk,netflix.com,live.com,amazon.com,microsoft.com,eu.wifiportal.io,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
 	########################################## Enter URL's Here
 	:local thisMany [:len $weburl];
 	:local resolvedAddress;
