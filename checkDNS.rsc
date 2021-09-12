@@ -1,23 +1,24 @@
+##create some variables to work with and stick them inside a kickoff function
 :local resolve do={
 	########################################## Enter URL's Here
 	:local weburl [:toarray value="bbc.co.uk,itv.co.uk,airangel.com,spotify.com,mbr.co.uk,netflix.com,live.com,amazon.com,microsoft.com,eu.wifiportal.io,airangel.com,apple.com,samsung.com,bmw.com,ford.com,sony.com,facebook.com,twitter.com,instagram.com"];
 	########################################## Enter URL's Here
-	:local thisMany [:len $weburl];
-	:local resolvedAddress;
-	:local retry 0;
+	:local thisMany [:len $weburl]; #count the url's
+	:local resolvedAddress; #store the results
+	:local retry 0; #reset retries for each kick off
 	:put "###### Test #$i. Testing with $svr ######";
-	:if ($flush) do={
+	:if ($flush) do={ #read the flush flag - no point testing the dns cache until the end. 
 		:put "Flushing local cache";
 		/ip dns cache flush;
 		/delay 2;
 	};
 	######################################### Resolver
 	:put "OKAY.. lets go";
-	:local startTime [/system clock get time];
-	:put "Start time: $startTime";
-	:foreach url in=$weburl do={
+	:local startTime [/system clock get time];#put start time, used for timing results later
+	:put "Start time: $startTime"; 
+	:foreach url in=$weburl do={ #Iterate the URL's through each available server
 		:put "Trying $url";
-		:if ($remoteSrv) do={
+		:if ($remoteSrv) do={ 
 			:do {:set resolvedAddress [resolve $url server $svr];} on-error={
 				:put "###### DNS Timeout for $url... Trying once more before aborting test"; 
 				:do {
@@ -25,7 +26,7 @@
 					:set retry ($retry + 1);
 				};
 			};
-		} else={
+		} else={ 
 			:do {:set resolvedAddress [resolve $url];} on-error={
 				:put "###### DNS Timeout... Trying once more before aborting test"; 
 				:do {
