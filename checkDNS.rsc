@@ -16,7 +16,7 @@
 	:put "OKAY.. lets go";
 	:local startTime [/system clock get time];#put start time, used for timing results later
 	:put "Start time: $startTime"; 
-	:foreach url in=$weburl do={ #Iterate the URL's through each available server
+	:foreach url in=$weburl do={ #Iterate the URL's through each available $svr
 		:put "Trying $url";
 		:if ($remoteSrv) do={ 
 			:do {:set resolvedAddress [resolve $url server $svr];} on-error={
@@ -42,13 +42,13 @@
 	:put "End time: $endTime";
 	:put "";
 	#################################### Format Results
-	############takenFromWeb########### Time formatting
+	############stolenFromWeb########### Time formatting
 	:local sum 0;
 	:local finalTime ( $endTime - $startTime );
 	:set sum ( $sum + ( [ :pick $finalTime 0 2 ] * 60 * 60 ));
 	:set sum ( $sum + ( [ :pick $finalTime 3 5 ] * 60 ));
 	:set sum ( $sum + [ :pick $finalTime 6 8 ] );
-	############takenFromWeb######## Time formatting End
+	############stoloenFromWeb######## Time formatting End
 	:local overRun ($sum - 2);
 	:if ($sum <= 2) do={
 		:local testResultPass "###### Test #$i OO-PASSED: Retries = $retry, Resolved $thisMany URL's in $sum seconds using $svr.";
@@ -88,7 +88,9 @@
 	:if ($position < $localTests) do={
 		:set remoteSrv true;
 	};
+	#if this is not the last test, specify the $srv
 	:set i ($i + 1);
+	# increment the test number
 	$resolve svr=$svr endResults=$endResults i=$i flush=$flush remoteSrv=$remoteSrv;
 	# ^ Calls Resolver 
 };
